@@ -1,0 +1,46 @@
+$lightBackColor: rgb(255, 255, 255);
+$blackBackColor: rgb(18, 18, 18);
+// 日间模式颜色样式
+lightMode {
+  .theme_Div {
+    background: $lightBackColor;
+    color: $blackBackColor;
+  }
+  .theme_Span {
+    background: $blackBackColor;
+    color: $lightBackColor;
+  }
+  .theme_MenuHeader {
+    background: $lightBackColor;
+    color: rgb(18, 18, 18);
+    border-color: #dcdfe6;
+  }
+}
+// 黑夜模式颜色样式
+blackMode {
+  .theme_Div {
+    background: $blackBackColor;
+    color: $lightBackColor;
+  }
+  .theme_Span {
+    background: $lightBackColor;
+    color: $blackBackColor;
+  }
+  .theme_MenuHeader {
+    background: $blackBackColor;
+    color: rgb(255, 255, 255);
+    border-color: #4c4d4f;
+  }
+}
+// 定义方法
+@mixin theme_color() {
+  // 判断匹配
+  @extend lightMode;
+  [class='dark'] & {
+    @extend blackMode;
+  }
+}
+
+#app {
+  @include theme_color();
+}

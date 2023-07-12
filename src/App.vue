@@ -1,85 +1,88 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
+  <div class="appContainer">
+    <div class="menuContainer">
+      <div class="menuHead theme_MenuHeader">
+        <el-switch
+          class="switch"
+          v-model="mode"
+          @change="toggleDark()"
+          inline-prompt
+          active-icon="Sunny"
+          inactive-icon="Moon"
+        />
+        <maxLengthContainer
+          :innerStyle="{
+            position: 'absolute',
+            top: '25px',
+            right: '65px',
+            cursor: 'pointer',
+          }"
+          max-width="100px"
+          content="测试账号01"
+        />
+        <!-- :max-line="2" -->
+        <el-avatar
+          :size="40"
+          class="avatar"
+          src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+        />
+      </div>
+      <Imenu class="el-menu-vertical-demo" :data="(menuData as menuDataType[])" />
     </div>
-  </header>
-
-  <RouterView />
+    <div class="routeContainer">
+      <RouterView />
+    </div>
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
+<script setup lang="ts">
+import { ref } from 'vue';
+import { useDark, useToggle } from '@vueuse/core';
+import { Document, Menu as IconMenu, Location, Setting } from '@element-plus/icons-vue';
+import Imenu from '@/components/Imenu/index.vue';
+import { menuDataType } from '@/components/Imenu/menuInner.vue';
+import menuData from '@/assets/currentMenuData.js';
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
+const mode = ref(true);
+const isDark = useDark();
+const toggleDark = useToggle(isDark);
+</script>
 
-nav {
+<style lang="scss" scoped>
+.appContainer {
+  height: 100%;
   width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+  position: relative;
+  .routeContainer {
+    position: absolute;
+    left: 200px;
+    top: 71px;
+    width: calc(100% - 200px);
+    height: calc(100% - 70px);
+    overflow: scroll;
   }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
+  .menuContainer {
+    height: 100%;
+    position: relative;
+    .menuHead {
+      width: 100%;
+      height: 70px;
+      border-bottom: 1px solid;
+      .switch {
+        margin-left: 1240px;
+        position: relative;
+        top: 19px;
+      }
+      .avatar {
+        position: absolute;
+        top: 12px;
+        right: 20px;
+      }
+    }
+    .el-menu-vertical-demo:not(.el-menu--collapse) {
+      width: 200px;
+      min-height: 100%;
+    }
   }
 }
 </style>

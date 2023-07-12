@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const a = {};
+      let b = a;
+      b.bbb = {};
+      let d = b.bbb;
+      d.fff = {};
+      b = d.fff;
+      b.kkk = 999;
+      console.log(a);
+    </script>
+  </body>
+</html>
