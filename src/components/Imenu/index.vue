@@ -9,7 +9,7 @@ export default { name: 'Imenu' };
 </script>
 <script setup lang="ts">
 import { computed } from 'vue';
-import MenuInner, { menuDataType } from './MenuInner.vue';
+import MenuInner, { type menuDataType } from './MenuInner.vue';
 interface IProps {
   isChild?: boolean;
   data: menuDataType[];

@@ -1,13 +1,13 @@
-.formContainer {
-  left: 10px;
-  position: relative;
-}
-.label_position {
-  position: relative;
-  left: 10px;
+.pagetitle {
+  font-size: 30px;
+  margin: 10px;
 }
 .buttonContainer {
   position: relative;
   left: 130px;
-  top: 25px;
+  top: 20px;
+  width: 85%;
+}
+.button {
+  width: 99%;
 }

@@ -13,13 +13,13 @@ export default [
     icon: 'Menu',
   },
   {
-    name: '表单',
+    name: '表单a',
     router: 'form',
     key: 'form',
     icon: 'ScaleToOriginal',
   },
   {
-    name: '待定',
+    name: '表单b',
     // router: 'hhh',
     key: 'hhh',
   },

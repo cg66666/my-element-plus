@@ -1,9 +1,11 @@
+// @ts-nocheck
 import { defineComponent, ref, watch, toRef, resolveComponent, h } from 'vue';
 import { configProviderContextKey, type FormInstance, type FormRules } from 'element-plus';
 import * as pageConfigMap from '../config';
 import s from './index.module.scss';
 const App = defineComponent({
   setup() {
+    const pageTitle = ref<string>();
     const renderArray = ref<any[]>([]);
     const formValue = ref<Record<string, any>>({});
     const FormInstance = ref<FormInstance>();
@@ -82,6 +84,7 @@ const App = defineComponent({
     watch(
       () => pageConfigMap,
       (nv) => {
+        pageTitle.value = nv['testA'].title;
         renderArray.value = getRenderArray(nv['testA'].components);
         console.log('渲染数据', renderArray.value);
         getFormValue(renderArray.value);
@@ -111,41 +114,48 @@ const App = defineComponent({
       FormInstance.value.resetFields();
     };
     return () => (
-      <el-form
-        ref={FormInstance}
-        model={formValue.value}
-        status-icon
-        label-width="120px"
-        label-position="left"
-      >
-        {renderArray.value.map((item) => (
-          <el-form-item
-            key={item.key}
-            label={item.label}
-            prop={item.path}
-            rules={item.rules}
-            style={{ position: 'relative', left: '10px', width: '99%' }}
-          >
-            {() => {
-              return h(resolveComponent(item.componentName), {
-                modelValue: item.val,
-                ['onUpdate:modelValue']: (val: any) => {
-                  item.val = val;
-                },
-                ...item.props,
-              });
-            }}
-          </el-form-item>
-        ))}
-        <div className={s.buttonContainer}>
-          <el-button type="primary" onclick={submitForm}>
-            提交
-          </el-button>
-          <el-button type="primary" onclick={resetForm}>
-            重置
-          </el-button>
-        </div>
-      </el-form>
+      <div>
+        <el-form
+          ref={FormInstance}
+          model={formValue.value}
+          status-icon
+          label-width="120px"
+          label-position="left"
+        >
+          <div className={s.pagetitle}>{pageTitle.value}</div>
+          {renderArray.value.map((item) => (
+            <div>
+              <el-form-item
+                key={item.key}
+                label={item.label}
+                prop={item.path}
+                rules={item.rules}
+                style={{ position: 'relative', left: '10px', width: '99%' }}
+              >
+                {() => {
+                  return h(resolveComponent(item.componentName), {
+                    modelValue: item.val,
+                    ['onUpdate:modelValue']: (val: any) => {
+                      console.log(111);
+
+                      item.val = val;
+                    },
+                    ...item.props,
+                  });
+                }}
+              </el-form-item>
+            </div>
+          ))}
+          <div className={s.buttonContainer}>
+            <el-button type="primary" onclick={submitForm}>
+              提交
+            </el-button>
+            <el-button type="primary" onclick={resetForm}>
+              重置
+            </el-button>
+          </div>
+        </el-form>
+      </div>
     );
   },
 });

@@ -1,10 +1,13 @@
 import type { Component } from 'vue';
-import maxLengthContainer from './maxLengthContainer.vue';
+import MaxLengthContainer from './MaxLengthContainer.vue';
+import UploadList from './UploadList.vue';
+import DatePicker from './DatePicker.vue';
 
-// ✨如果使用的是 JS 可以删除类型校验
 const components: {
   [propName: string]: Component;
 } = {
-  maxLengthContainer,
+  MaxLengthContainer,
+  UploadList,
+  DatePicker,
 };
 export default components;

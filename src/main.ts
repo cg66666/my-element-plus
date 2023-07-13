@@ -2,6 +2,7 @@ import 'normalize.css';
 // element-plus 黑夜样式
 import 'element-plus/theme-chalk/dark/css-vars.css';
 import '@/assets/css/global.css';
+// import 'default-passive-events'
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import App from './App.vue';

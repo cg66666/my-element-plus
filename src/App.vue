@@ -10,7 +10,7 @@
           active-icon="Sunny"
           inactive-icon="Moon"
         />
-        <maxLengthContainer
+        <MaxLengthContainer
           :innerStyle="{
             position: 'absolute',
             top: '25px',

@@ -126,7 +126,7 @@ export const testA = {
     },
     test7: [
       {
-        name: 'el-input',
+        name: 'DatePicker',
         label: '测试08',
         key: 8,
         config: {
@@ -140,8 +140,42 @@ export const testA = {
             trigger: 'change',
           },
         ],
-        defaultValue: 222,
+        defaultValue: '',
       },
     ],
+    test8: {
+      name: 'UploadList',
+      label: '测试08',
+      key: 8,
+      config: {
+        aaa: '333',
+        autocomplete: 'off',
+      },
+      rules: [
+        {
+          required: true,
+          message: 'Please select Activity zone',
+          trigger: 'change',
+        },
+      ],
+      defaultValue: [
+        {
+          name: 'food.jpeg',
+          url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100',
+        },
+        {
+          name: 'food.jpeg',
+          url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100',
+        },
+        {
+          name: 'food.jpeg',
+          url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100',
+        },
+        {
+          name: 'food.jpeg',
+          url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100',
+        },
+      ],
+    },
   },
 };

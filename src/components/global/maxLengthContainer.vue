@@ -18,7 +18,7 @@
 /**
  * 该组件，多行情况下，父组件为弹性盒子会失效，且多行情况下混合英文，可能会出现排版问题
  */
-import { ref, watch, CSSProperties, computed } from 'vue';
+import { ref, watch, type CSSProperties, computed } from 'vue';
 interface IProps {
   content: string;
   maxWidth: string;
@@ -36,7 +36,11 @@ const divDom = ref<HTMLElement>();
 const isMulti = computed(() => props.maxLine > 1);
 const hoverEvent = () => {
   if (!props.showTips) return;
-  if (spanDom.value.offsetWidth > divDom.value.offsetWidth * props.maxLine) {
+  if (
+    spanDom.value &&
+    divDom.value &&
+    spanDom.value.offsetWidth > divDom.value.offsetWidth * props.maxLine
+  ) {
     visible.value = !visible.value;
     return;
   }

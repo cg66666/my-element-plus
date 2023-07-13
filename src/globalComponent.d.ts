@@ -1,6 +1,6 @@
-import maxLengthContainer from '@/components/global/maxLengthContainer.vue';
+import MaxLengthContainer from '@/components/global/MaxLengthContainer.vue';
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    maxLengthContainer: typeof maxLengthContainer;
+    MaxLengthContainer: typeof MaxLengthContainer;
   }
 }
