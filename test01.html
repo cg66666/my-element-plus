@@ -7,14 +7,15 @@
   </head>
   <body>
     <script>
-      const a = {};
-      let b = a;
-      b.bbb = {};
-      let d = b.bbb;
-      d.fff = {};
-      b = d.fff;
-      b.kkk = 999;
-      console.log(a);
+      const d = () => {
+        console.log(aaa);
+      };
+      const e = [];
+      e.push(d);
+      // const e = () => {
+      //   console.log(aaa);
+      // };
+      console.log(d === e[0]);
     </script>
   </body>
 </html>

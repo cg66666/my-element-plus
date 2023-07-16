@@ -1,10 +1,28 @@
 // @ts-nocheck
-import { defineComponent, ref, watch, toRef, resolveComponent, h } from 'vue';
+import {
+  defineComponent,
+  ref,
+  watch,
+  toRef,
+  resolveComponent,
+  h,
+  onMounted,
+  onUnmounted,
+  onBeforeMount,
+  onUpdated,
+  defineAsyncComponent,
+} from 'vue';
 import { configProviderContextKey, type FormInstance, type FormRules } from 'element-plus';
+import { useRouter } from 'vue-router';
+import { useFormData } from '@/stores';
 import * as pageConfigMap from '../config';
 import s from './index.module.scss';
+import components from '@/components/index';
+
 const App = defineComponent({
   setup() {
+    const { setFormData, clear } = useFormData();
+    const router = useRouter();
     const pageTitle = ref<string>();
     const renderArray = ref<any[]>([]);
     const formValue = ref<Record<string, any>>({});
@@ -82,12 +100,17 @@ const App = defineComponent({
       return innerFormValue;
     };
     watch(
-      () => pageConfigMap,
+      () => router.currentRoute.value.query,
       (nv) => {
-        pageTitle.value = nv['testA'].title;
-        renderArray.value = getRenderArray(nv['testA'].components);
-        console.log('渲染数据', renderArray.value);
+        clearForm();
+        const { id } = nv;
+        pageTitle.value = pageConfigMap[id].title;
+        renderArray.value = getRenderArray(pageConfigMap[id].components);
         getFormValue(renderArray.value);
+        console.log(222);
+
+        setFormData(formValue.value, renderArray.value);
+        console.log('加载完毕==>', formValue.value, renderArray.value);
       },
       { deep: true, immediate: true }
     );
@@ -102,7 +125,7 @@ const App = defineComponent({
       if (!FormInstance.value) return;
       FormInstance.value.validate((valid: any) => {
         if (valid) {
-          console.log('submit!');
+          console.log('submit!', formValue.value);
         } else {
           console.log('error submit!');
           return false;
@@ -113,6 +136,14 @@ const App = defineComponent({
       if (!FormInstance.value) return;
       FormInstance.value.resetFields();
     };
+    function clearForm() {
+      renderArray.value = [];
+      formValue.value = {};
+      clear();
+    }
+    onUnmounted(() => {
+      clear();
+    });
     return () => (
       <div>
         <el-form
@@ -133,15 +164,21 @@ const App = defineComponent({
                 style={{ position: 'relative', left: '10px', width: '99%' }}
               >
                 {() => {
-                  return h(resolveComponent(item.componentName), {
-                    modelValue: item.val,
-                    ['onUpdate:modelValue']: (val: any) => {
-                      console.log(111);
+                  // return h(resolveComponent(item.componentName), {
+                  return h(
+                    item.componentName.includes('el-')
+                      ? resolveComponent(item.componentName)
+                      : components[item.componentName],
+                    {
+                      modelValue: item.val,
+                      ['onUpdate:modelValue']: (val: any) => {
+                        console.log(111);
 
-                      item.val = val;
-                    },
-                    ...item.props,
-                  });
+                        item.val = val;
+                      },
+                      ...item.props,
+                    }
+                  );
                 }}
               </el-form-item>
             </div>

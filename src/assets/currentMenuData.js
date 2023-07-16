@@ -14,14 +14,15 @@ export default [
   },
   {
     name: '表单a',
-    router: 'form',
-    key: 'form',
+    router: 'form?id=testA',
+    key: 'formA',
     icon: 'ScaleToOriginal',
   },
   {
     name: '表单b',
-    // router: 'hhh',
-    key: 'hhh',
+    router: 'form?id=testB',
+    key: 'formB',
+    icon: 'Compass',
   },
   {
     name: '待定',

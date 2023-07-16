@@ -12,6 +12,8 @@
     <el-dialog v-model="dialogVisible">
       <img w-full :src="dialogImageUrl" alt="Preview Image" />
     </el-dialog>
+    <el-button @click="Bus.$emit('test01')">触发下eventBus事件</el-button>
+    <el-button @click="formStore.setFormVal(6, 10)">触发下formStore事件</el-button>
   </div>
 </template>
 
@@ -19,15 +21,19 @@
 import { ref, computed } from 'vue';
 import { Plus } from '@element-plus/icons-vue';
 import type { UploadProps, UploadUserFile } from 'element-plus';
+import useEventBus from '@/eventBus';
+import { useFormData } from '@/stores';
 interface IProps {
   modelValue: UploadUserFile[];
 }
+const formStore = useFormData();
+const Bus = useEventBus();
 const props = defineProps<IProps>();
-const emit = defineEmits<{ 'update:modelValue': [fileList: UploadUserFile[]] }>();
+const emits = defineEmits<{ 'update:modelValue': [fileList: UploadUserFile[]] }>();
 const fileList = computed({
   get: () => props.modelValue,
   set: (val) => {
-    emit('update:modelValue', val);
+    emits('update:modelValue', val);
   },
 });
 const dialogImageUrl = ref('');
@@ -44,3 +50,4 @@ const handlePictureCardPreview: UploadProps['onPreview'] = (uploadFile) => {
 </script>
 
 <style></style>
+@/utils/EventBus

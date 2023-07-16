@@ -38,11 +38,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useDark, useToggle } from '@vueuse/core';
-import { Document, Menu as IconMenu, Location, Setting } from '@element-plus/icons-vue';
+// import { Document, Menu as IconMenu, Location, Setting } from '@element-plus/icons-vue';
 import Imenu from '@/components/Imenu/index.vue';
-import { menuDataType } from '@/components/Imenu/menuInner.vue';
-import menuData from '@/assets/currentMenuData.js';
-
+import { menuDataType } from '@/components/Imenu/MenuInner.vue';
+import menuData from '@/assets/CurrentMenuData.js';
 const mode = ref(true);
 const isDark = useDark();
 const toggleDark = useToggle(isDark);

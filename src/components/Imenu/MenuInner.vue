@@ -27,15 +27,6 @@ interface IProps {
   data: menuDataType[];
 }
 const props = defineProps<IProps>();
-
-// const defaultRoute = computed(() => props.data.find((item) => item.isDefault)?.router || '');
-// watch(
-//   props,
-//   (nv) => {
-//     console.log(nv);
-//   },
-//   { immediate: true }
-// );
 </script>
 
 <style></style>
