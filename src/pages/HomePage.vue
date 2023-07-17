@@ -20,6 +20,7 @@
 import { ref, watch, onMounted, computed } from 'vue';
 import type { data } from '@/components/global/ISelect.vue';
 import * as echarts from 'echarts';
+import useECharts from '@/hook/useEchart';
 type InitData = {
   name: string;
   data: number[];
@@ -32,14 +33,13 @@ enum indexStatus {
 const selectLeft = ref('');
 const selectRight = ref('');
 const mainDom = ref<HTMLElement>();
-const chartOption = ref<echarts.EChartsOption>();
+const { setOptions } = useECharts(mainDom);
 const handleData = ref<data[]>([]);
-let myChart: echarts.ECharts;
 let initData: InitData[];
 let indexList: string[];
 let averageIndex: number[];
-const handleDataFn = () => {
-  chartOption.value = {
+const handleDataFn = (): echarts.EChartsOption => {
+  return {
     xAxis: {
       type: 'category',
       boundaryGap: false,
@@ -67,8 +67,6 @@ const handleDataFn = () => {
     tooltip: {
       trigger: 'item',
       formatter: (params: any) => {
-        console.log(params);
-
         const text =
           params.data > averageIndex[params.dataIndex]
             ? indexStatus.HIGHER
@@ -77,6 +75,15 @@ const handleDataFn = () => {
             : indexStatus.EQUAL;
         return `<div class="toolTipContainer"><div class="title" style="color: ${params.color}">${params.name}</div><div class="num">${params.data}</div><div>${text}</div></div>`;
       },
+    },
+    grid: {
+      // show: true,
+      // left: '0%',
+      top: '5%',
+      right: '5%',
+      bottom: '5%',
+      // backgroundColor: 'rgba(224, 17, 17, 1)',
+      // borderColor: 'rgba(96, 67, 67, 1)',
     },
   };
 };
@@ -87,29 +94,19 @@ const options = computed(() =>
   })
 );
 watch(
-  chartOption,
-  (nv) => {
-    myChart.setOption(nv as echarts.EChartsOption);
-  },
-  {
-    deep: true,
-  }
-);
-watch(
   selectLeft,
   () => {
-    handleDataFn();
+    setOptions(handleDataFn());
   },
   { deep: true }
 );
 watch(
   selectRight,
   () => {
-    handleDataFn();
+    setOptions(handleDataFn());
   },
   { deep: true }
 );
-
 onMounted(() => {
   averageIndex = [999, 999, 999, 999, 999, 999, 999];
   indexList = ['点击率', '播放率', '回播率', '分享率', '评论率', '点赞率', '收藏率'];
@@ -150,9 +147,9 @@ onMounted(() => {
       return { label: item.name, value: item.name };
     });
   }
+  handleDataFn();
   if (mainDom.value) {
-    myChart = echarts.init(mainDom.value);
-    handleDataFn();
+    setOptions(handleDataFn());
   }
 });
 </script>

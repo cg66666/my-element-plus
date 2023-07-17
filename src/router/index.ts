@@ -13,6 +13,11 @@ const router = createRouter({
       component: () => import('@/pages/HomePage.vue'),
     },
     {
+      path: '/echartHook',
+      name: 'echartHook',
+      component: () => import('@/pages/Echart2.vue'),
+    },
+    {
       path: '/menu',
       name: 'menu',
       component: () => import('@/pages/MenuPage.vue'),

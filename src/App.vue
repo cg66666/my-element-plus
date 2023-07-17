@@ -68,8 +68,8 @@ const toggleDark = useToggle(isDark);
       height: 70px;
       border-bottom: 1px solid;
       .switch {
-        margin-left: 1240px;
-        position: relative;
+        right: 230px;
+        position: absolute;
         top: 19px;
       }
       .avatar {

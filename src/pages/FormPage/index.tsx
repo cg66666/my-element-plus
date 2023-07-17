@@ -100,15 +100,14 @@ const App = defineComponent({
       return innerFormValue;
     };
     watch(
-      () => router.currentRoute.value.query,
+      () => router.currentRoute.value,
       (nv) => {
+        if (!nv.fullPath.includes('form')) return;
+        const { id } = nv.query;
         clearForm();
-        const { id } = nv;
         pageTitle.value = pageConfigMap[id].title;
         renderArray.value = getRenderArray(pageConfigMap[id].components);
         getFormValue(renderArray.value);
-        console.log(222);
-
         setFormData(formValue.value, renderArray.value);
         console.log('加载完毕==>', formValue.value, renderArray.value);
       },
@@ -142,6 +141,8 @@ const App = defineComponent({
       clear();
     }
     onUnmounted(() => {
+      console.log(555);
+
       clear();
     });
     return () => (
@@ -172,8 +173,6 @@ const App = defineComponent({
                     {
                       modelValue: item.val,
                       ['onUpdate:modelValue']: (val: any) => {
-                        console.log(111);
-
                         item.val = val;
                       },
                       ...item.props,

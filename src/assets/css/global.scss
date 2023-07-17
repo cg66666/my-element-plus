@@ -33,14 +33,19 @@ blackMode {
   }
 }
 // 定义方法
-@mixin theme_color() {
-  // 判断匹配
-  @extend lightMode;
-  [class='dark'] & {
-    @extend blackMode;
-  }
-}
+// @mixin theme_color() {
+//   // 判断匹配
+//   @extend lightMode;
+//   html[class='dark'] & {
+//     @extend blackMode;
+//   }
+// }
 
 #app {
-  @include theme_color();
+  // 判断匹配
+  @extend lightMode;
+  html[class='dark'] & {
+    @extend blackMode;
+  }
+  // @include theme_color();
 }

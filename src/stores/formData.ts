@@ -21,8 +21,6 @@ export const useFormData = defineStore('form', () => {
   };
   // 根据key获取form表单内容
   const getFormItemVal = (key: string | number) => {
-    console.log(111, toRaw(initFormValList));
-
     return toRaw(initFormValList).find((item) => item.key === key).val.value;
   };
   // 根据key改变form表单中对应内容
