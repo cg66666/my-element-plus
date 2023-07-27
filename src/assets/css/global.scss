@@ -1,7 +1,7 @@
 $lightBackColor: rgb(255, 255, 255);
 $blackBackColor: rgb(18, 18, 18);
 // 日间模式颜色样式
-lightMode {
+%lightMode {
   .theme_Div {
     background: $lightBackColor;
     color: $blackBackColor;
@@ -17,7 +17,7 @@ lightMode {
   }
 }
 // 黑夜模式颜色样式
-blackMode {
+%blackMode {
   .theme_Div {
     background: $blackBackColor;
     color: $lightBackColor;
@@ -41,11 +41,18 @@ blackMode {
 //   }
 // }
 
-#app {
-  // 判断匹配
-  @extend lightMode;
-  html[class='dark'] & {
-    @extend blackMode;
+html {
+  @extend %lightMode;
+  &[class='dark'] {
+    @extend %blackMode;
   }
-  // @include theme_color();
 }
+
+// #app {
+//   // 判断匹配
+
+//   html[class='dark'] & {
+//     @extend %blackMode;
+//   }
+//   // @include theme_color();
+// }

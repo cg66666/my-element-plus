@@ -65,7 +65,7 @@ export default function useECharts(
   }
   watch(elparams, (nv) => {
     if (nv) {
-      //   window.addEventListener('resize', onResize);
+      window.addEventListener('resize', onResize);
       if (autoUpdateSize) watchEl();
     }
   });

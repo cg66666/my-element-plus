@@ -51,6 +51,7 @@ function Export() {
     pixelRatio: 1, //放大2倍
     backgroundColor: '#fff',
   });
+  getInstance()?.dispose();
   // 触发a的单击事件
   a.dispatchEvent(event);
   a.remove();
